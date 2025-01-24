@@ -39,8 +39,17 @@ public class SortedLinkedList {
 
     }
 
-    public int serachItem(ItemType item) {
+    public int searchItem(ItemType item) {
+        int index = 0;
+        NodeType temp = head;
 
+        while(temp != null) {
+            if(temp.info.getValue() == item.getValue()) {
+                return index;
+            }
+            temp = temp.next;
+            index++;
+        }
     }
 
     public ItemType getNextItem() {
