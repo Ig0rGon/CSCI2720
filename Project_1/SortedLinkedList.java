@@ -52,7 +52,33 @@ public class SortedLinkedList {
     }
 
     public void deleteItem(ItemType item) {
-
+        // Traverse list to find if the item exists
+        NodeType temp = head;
+        boolean itemExists = false;
+        while(temp != null) {
+                if(temp.info.getValue() == item.getValue()) {
+                    itemExists = true;
+                }
+                temp = temp.next;
+            }
+        if(getLength() == 0) {
+            // List is empty
+            System.out.println("You cannot delete from an empty list");
+        } else if(itemExists == false) {
+            // Item does not exist
+            System.out.println("Item not found");
+        } else {
+            // Only 1 item in the list
+            if(getLength() == 1) {
+                head = null;
+                currentPos = null;
+            } esle if(head.info.compareTo(item) == 0) {
+                // First item in the list
+                head
+            } else {
+                
+            }
+        }
     }
 
     public int searchItem(ItemType item) {
