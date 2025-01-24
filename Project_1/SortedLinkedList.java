@@ -69,12 +69,24 @@ public class SortedLinkedList {
     }
 
     public ItemType getNextItem() {
-
+        ItemType itemNext = null;
+        if (head == null) {
+            System.out.println("The list is empty");
+            return null;
+        } else if (currentPos == null) {
+            currentPos = head;
+            itemNext = currentPos.info;
+        } else {
+            if (currentPos.next == null) {
+                System.out.println("End of the list has been reached");
+                itemNext = null;
+            }
+        }
+        return itemNext;
     }
 
     public void resetList() {
         currentPos = null;
-        head = null;
     }
 
     public void mergeList() {
