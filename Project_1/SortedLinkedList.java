@@ -46,7 +46,7 @@ public class SortedLinkedList {
                 currentPos = currentPos.next;
             } else {
                 // already in
-                System.out.println("Sorry. You cannot insert the duplicate item")
+                System.out.println("Sorry. You cannot insert the duplicate item");
             }
         }
     }
@@ -66,6 +66,7 @@ public class SortedLinkedList {
             temp = temp.next;
             index++;
         }
+        return -1; // Item not found
     }
 
     public ItemType getNextItem() {
