@@ -5,7 +5,7 @@ public class ItemType {
     private int value;
 
     public int compareTo(ItemType item) {
-        return Integer.compareTo(this.value, item.value);
+        return Integer.compare(this.value, item.value);
     }
 
     public int getValue() {
