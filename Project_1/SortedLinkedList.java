@@ -46,7 +46,7 @@ public class SortedLinkedList {
                 currentPos = currentPos.next;
             } else {
                 // already in
-                System.out.println("Sorry. You cannot insert the duplicate item")
+                System.out.println("Sorry. You cannot insert the duplicate item");
             }
         }
     }
@@ -92,15 +92,28 @@ public class SortedLinkedList {
             temp = temp.next;
             index++;
         }
+        return -1; // Item not found
     }
 
     public ItemType getNextItem() {
-
+        ItemType itemNext = null;
+        if (head == null) {
+            System.out.println("The list is empty");
+            return null;
+        } else if (currentPos == null) {
+            currentPos = head;
+            itemNext = currentPos.info;
+        } else {
+            if (currentPos.next == null) {
+                System.out.println("End of the list has been reached");
+                itemNext = null;
+            }
+        }
+        return itemNext;
     }
 
     public void resetList() {
         currentPos = null;
-        head = null;
     }
 
     public void mergeList() {
