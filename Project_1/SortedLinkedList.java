@@ -10,7 +10,7 @@ public class SortedLinkedList {
     }
 
     public int getLength() {
-        
+
     }
 
     public void insertItem(ItemType item) {
@@ -33,15 +33,15 @@ public class SortedLinkedList {
 
     }
 
-    public mergeList() {
+    public void mergeList() {
 
     }
 
-    public deleteAlternateNodes() {
+    public void deleteAlternateNodes() {
 
     }
 
-    public intersection() {
+    public void intersection() {
 
     }
 }
