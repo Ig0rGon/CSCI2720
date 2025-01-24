@@ -48,7 +48,8 @@ public class SortedLinkedList {
     }
 
     public void resetList() {
-
+        currentPos = null;
+        head = null;
     }
 
     public void mergeList() {

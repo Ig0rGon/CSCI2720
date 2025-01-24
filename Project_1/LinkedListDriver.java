@@ -9,7 +9,7 @@ public class LinkedListDriver {
         if (args.length != 1) {
             System.out.println("File input.txt is not found!");
             return;
-        }
+        }   
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
