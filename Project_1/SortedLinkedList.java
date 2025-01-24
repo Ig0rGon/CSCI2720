@@ -28,10 +28,26 @@ public class SortedLinkedList {
     public void insertItem(ItemType item) {
         // If the list is empty
         if(this.getLength() == 0) {
-            this.head.info = 
+            head = new NodeType(item);
+            currentPos = head;
         } else {
-            // If the item to be inserted is new
-            
+            // If the item to be inserted is new or already in the list
+            boolean duplicate = false;
+            NodeType temp = head;
+            while(temp != null) {
+                if(temp.info.getValue() == item.getValue()) {
+                    duplicate = true;
+                }
+                temp = temp.next;
+            }
+            if(duplicate == false){
+                // new item
+                currentPos.next = new NodeType(item);
+                currentPos = currentPos.next;
+            } else {
+                // already in
+                System.out.println("Sorry. You cannot insert the duplicate item")
+            }
         }
     }
 
