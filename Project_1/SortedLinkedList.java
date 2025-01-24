@@ -72,10 +72,21 @@ public class SortedLinkedList {
             if(getLength() == 1) {
                 head = null;
                 currentPos = null;
-            } esle if(head.info.compareTo(item) == 0) {
+            } else if(head.info.compareTo(item) == 0) {
                 // First item in the list
-                head
+                head = head.next;
             } else {
+                // Item is in the middle or at the end of the list
+                NodeType prev = head;
+                NodeType curr = head.next;
+                while(curr != null) {
+                    if(curr.info.compareTo(item) == 0) {
+                        prev.next = curr.next;
+                        //break;
+                    }
+                    prev = curr;
+                    curr = curr.next;
+                }
                 
             }
         }
