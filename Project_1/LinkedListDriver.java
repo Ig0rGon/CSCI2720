@@ -1,16 +1,34 @@
 package Project_1;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LinkedListDriver {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         String command;
 
+        // check if the file input.txt is found
         if (args.length != 1) {
             System.out.println("File input.txt is not found!");
             return;
         }   
-        Scanner scanner = new Scanner(System.in);
+
+        String filePath = args[0];
+
+        // try to open the file
+        try (Scanner fileScanner = new Scanner(new File(filePath))) {
+            System.out.println("Usage: java FileHandler <input.txt>"); // temporary message for testing purposes
+        
+            // read the line from the input file
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                System.out.println(line); // temporary message for testing purposes
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!" + filePath); // temporary message for testing purposes
+        }
 
         while (true) {
             System.out.println("Commands: ");
