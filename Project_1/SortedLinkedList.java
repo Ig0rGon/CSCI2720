@@ -79,13 +79,15 @@ public class SortedLinkedList {
                 // Item is in the middle or at the end of the list
                 NodeType prev = head;
                 NodeType curr = head.next;
-                while(curr != null) {
+                boolean foundDeletedNode = false;
+                while(curr != null && foundDeletedNode == false) {
                     if(curr.info.compareTo(item) == 0) {
                         prev.next = curr.next;
-                        //break;
+                        foundDeletedNode = true;
+                    } else {
+                        prev = curr;
+                        curr = curr.next;
                     }
-                    prev = curr;
-                    curr = curr.next;
                 }
                 
             }
@@ -127,8 +129,31 @@ public class SortedLinkedList {
         currentPos = null;
     }
 
-    public void mergeList() {
-
+    public void mergeList(SortedLinkedList newList) {
+        NodeType tempOldList = head;
+        NodeType tempNewList = newList.head;
+        // Sorts new list into the old list in ascending order
+        while(tempNewList != null && tempOldList != null) {
+            if(tempNewList.compareTo(tempOldList) == 0) {
+                // Do not insert duplicate items
+                tempNewList = tempNewList.next;
+                tempOldList = tempOldList.next;
+            } else if(tempNewList.compareTo(tempOldList) > 0) {
+                // Insert new item and shift list to the right
+                NodeType insertedNode = new NodeType(tempNewList.info);
+                insertedNode.next = tempOldList.next;
+                tempOldList.next = insertedNode;
+                tempNewList = tempNewList.next;
+                tempOldList = tempOldList.next;
+            } else if(tempNewList.compareTo(tempOldList) < 0) {
+                // Insert new item and shift list to the left
+                NodeType insertedNode = new NodeType(tempNewList.info);
+                insertedNode.next = tempOldList;
+                tempOldList = insertedNode;
+                tempNewList = tempNewList.next;
+                tempOldList = tempOldList.next;
+            } 
+        }
     }
 
     public void deleteAlternateNodes() {
