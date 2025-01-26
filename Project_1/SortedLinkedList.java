@@ -157,7 +157,30 @@ public class SortedLinkedList {
     }
 
     public void deleteAlternateNodes() {
-
+        // delete alternate nodes if the list has more than 1 node
+        if(getLength() != 0 && getLength() != 1) {  
+            if(getLength() % 2 == 0) {
+                // If list has an even number of nodes
+                int positionToDelete = 1;
+                NodeType temp = head;
+                while(temp != null) {
+                    if(positionToDelete % 2 == 0) {
+                        temp = temp.next;
+                    }
+                    positionToDelete++;
+                }
+            } else if(getLength() % 2 != 0) {
+                // If list has an odd number of nodes
+                int positionToDelete = 1;
+                NodeType temp = head;
+                while(temp != null) {
+                    if(positionToDelete % 2 == 0) {
+                        temp = temp.next;
+                    }
+                    positionToDelete++;
+                }
+            }
+        }
     }
 
     public void intersection() {
