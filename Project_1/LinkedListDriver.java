@@ -14,6 +14,17 @@ public class LinkedListDriver {
 
         while (true) {
             System.out.println("Commands: ");
+            System.out.println("(i) - Insert value");
+            System.out.println("(d) - Delete value");
+            System.out.println("(s) - Search value");
+            System.out.println("(n) - Print next iterator value");
+            System.out.println("(r) - Reset iterator");
+            System.out.println("(a) - Delete alternate nodes");
+            System.out.println("(m) - Merge lists");
+            System.out.println("(t) - Find intersection");
+            System.out.println("(p) - Print list");
+            System.out.println("(l) - Print length");
+            System.out.println("(q) - Quit program");
             command = scanner.nextLine();
 
             if (command.equals("i")) {
