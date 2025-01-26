@@ -41,9 +41,30 @@ public class SortedLinkedList {
                 temp = temp.next;
             }
             if(duplicate == false){
-                // new item
-                currentPos.next = new NodeType(item);
-                currentPos = currentPos.next;
+                // new item and insert it in the list in ascending order
+                NodeType temp = head;
+                boolean newNodeisInserted = false;
+                while(temp != null) {
+                    if(temp.info.compareTo(item) > 0) {
+                        // Insert item at the beginning of the list
+                        NodeType insertedNode = new NodeType(item);
+                        insertedNode.next = head;
+                        head = insertedNode;
+                        newNodeisInserted = true;
+                    } else if(temp.info.compareTo(item) < 0 && temp.next == null) {
+                        // Insert item at the end of the list
+                        NodeType insertedNode = new NodeType(item);
+                        temp.next = insertedNode;
+                        newNodeisInserted = true;
+                    } else if(temp.info.compareTo(item) < 0 && temp.next.info.compareTo(item) > 0) {
+                        // Insert item in the middle of the list
+                        NodeType insertedNode = new NodeType(item);
+                        insertedNode.next = temp.next;
+                        temp.next = insertedNode;
+                        newNodeisInserted = true;
+                    }
+                    temp = temp.next;
+                }
             } else {
                 // already in
                 System.out.println("Sorry. You cannot insert the duplicate item");
