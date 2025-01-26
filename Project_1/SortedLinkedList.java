@@ -18,11 +18,12 @@ public class SortedLinkedList {
             return size;
         }
         else {
-            while(currentPos != null) {
-                if(Integer.currentPos.info.getValue() != null) {
+            NodeType temp = head;
+            while(temp != null) {
+                if(Integer.temp.info.getValue() != null) {
                     size++;
                 }
-                currentPos = currentPos.next;
+                temp = temp.next;
             }
             return size;
         }
@@ -32,7 +33,6 @@ public class SortedLinkedList {
         // If the list is empty
         if(this.getLength() == 0) {
             head = new NodeType(item);
-            currentPos = head;
         } else {
             // If the item to be inserted is new or already in the list
             boolean duplicate = false;
@@ -95,7 +95,6 @@ public class SortedLinkedList {
             // Only 1 item in the list
             if(getLength() == 1) {
                 head = null;
-                currentPos = null;
             } else if(head.info.compareTo(item) == 0) {
                 // First item in the list
                 head = head.next;
@@ -119,9 +118,9 @@ public class SortedLinkedList {
     }
 
     public int searchItem(ItemType item) {
-        int index = 0;
+        int index = 1;
         NodeType temp = head;
-
+        // Traverse list to find the item at the specified index
         while(temp != null) {
             if(temp.info.getValue() == item.getValue()) {
                 return index;
@@ -129,24 +128,28 @@ public class SortedLinkedList {
             temp = temp.next;
             index++;
         }
-        return -1; // Item not found
+        // Item not found
+        return -1; 
     }
 
     public ItemType getNextItem() {
-        ItemType itemNext = null;
+        // If the list is empty
         if (head == null) {
             System.out.println("The list is empty");
             return null;
-        } else if (currentPos == null) {
+        } 
+        if (currentPos == null) {
+            // Start the from the beginning of the list
             currentPos = head;
-            itemNext = currentPos.info;
+        } else if (currentPos.next == null) {
+            System.out.println("The end of the list has been reached");
+            // Start the iterator from the beginning of the list
+            currentPos = head;
         } else {
-            if (currentPos.next == null) {
-                System.out.println("End of the list has been reached");
-                itemNext = null;
-            }
+            // Move the iterator to the next node
+            currentPos = currentPos.next;
         }
-        return itemNext;
+        return currentPos.info;
     }
 
     public void resetList() {

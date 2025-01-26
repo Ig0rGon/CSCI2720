@@ -32,7 +32,7 @@ public class LinkedListDriver {
         }
         // Creates a new list
         SortedLinkedList list = new SortedLinkedList();
-        while (true) {
+        while(command.equals("q")) {
             System.out.println("Commands: ");
             System.out.println("(i) - Insert value");
             System.out.println("(d) - Delete value");
@@ -76,14 +76,37 @@ public class LinkedListDriver {
             } else if (command.equals("s")) {
                 System.out.println("Enter a number to search: ");
                 int searchValue = scanner.nextInt();
-
+                scanner.nextLine();
+                System.out.print("Orginal List : ");
+                printList(list);
+                int index = list.searchItem(searchValue); 
+                if(list.getLength() == 0) {
+                    // List is empty
+                    System.out.println("The list is empty");
+                } else {
+                    // Cases for finding the item
+                    if(index == -1) {
+                        System.out.println("Item is not present in the list");
+                    } else {
+                        System.out.println("The item is present at index " + index);
+                    }
+                }
             } else if (command.equals("n")) {
-
+                // Print next iterator value
+                System.out.println(list.getNextItem());
             } else if (command.equals("r")) {
+                list.resetList();
                 System.out.println("Iterator is reset");
-
             } else if (command.equals("a")) {
-
+                // Delete alternate nodes
+                System.out.print("Orginal List: ");
+                printList(list);
+                if(list.getLength() == 0) {
+                    System.out.println("The list is empty");
+                }
+                list.deleteAlternate();
+                System.out.print("Modified List: ");
+                printList(list);
             } else if (command.equals("m")) {
                 // Merges two lists
                 System.out.println("Enter the length of the new list: ");
@@ -139,8 +162,7 @@ public class LinkedListDriver {
             } else {
                 System.out.println("Invalid command try again: ");
                 command = scanner.nextLine();
-        }
-
+            }
         }
     }  
 
