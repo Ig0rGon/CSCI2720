@@ -1,5 +1,8 @@
 package Project_1;
 
+import NodeType;
+import ItemType;
+
 public class SortedLinkedList {
     private NodeType head;
     private NodeType currentPos;

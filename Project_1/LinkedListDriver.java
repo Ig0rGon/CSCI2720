@@ -51,10 +51,12 @@ public class LinkedListDriver {
                 // Insert Value
                 System.out.println("Enter a number to insert: ");
                 int insertValue = scanner.nextInt();
-                scanner.nextLine();  
+                scanner.nextLine(); 
+                ItemType item = new ItemType();
+                item.initialize(insertValue); 
                 System.out.print("Orginal List : ");
                 printList(list);
-                list.insertItem(insertValue);
+                list.insertItem(item);
                 System.out.print("New List : ");
                 printList(list);
             } else if (command.equals("d")) {
@@ -86,28 +88,39 @@ public class LinkedListDriver {
                 // Merges two lists
                 System.out.println("Enter the length of the new list: ");
                 int length = scanner.nextInt();
-                LinkedList list2 = new LinkedList();
-                System.out.println("Enter the numnbers: ");
+                SortedLinkedList list2 = new SortedLinkedList();
+                System.out.println("Enter the numbers: ");
                 for (int i = 0; i < length; i++) {
                     int value = scanner.nextInt();
-                    list2.insertName(value);
+                    ItemType item = new ItemType();
+                    item.initialize(value);
+                    list2.insertItem(value);
                 }
+                System.out.print("The list 1: ");
+                printList(list);
+                System.out.print("The list 2: ");
+                printList(list2);
+                SortedLinkedList mergedList = list.merge(list2);
+                System.out.print("Merged list: ");
+                printList(mergedList);
 
             } else if (command.equals("t")) {
                 // Checks for intersection of two lists
                 System.out.println("Enter the length of the new list: ");
                 int length = scanner.nextInt();
-                Linked list2 = new LinkedList();
+                SortedLinkedList list2 = new SortedLinkedList();
                 System.out.println("Enter the numbers ");
                 for (int i = 0; i < length; i++) {
                     int value = scanner.nextInt();
-                    list2.insertItem(value);
+                    ItemType item = new ItemType();
+                    item.initialize(value);
+                    list2.insertItem(item);
                 }
                 System.out.println("The list 1: ");
                 printList(list);
                 System.out.println("The list 2: ");
                 printList(list2);
-                LinkedList intersection = list.intersection(list2);
+                SortedLinkedList intersection = list.intersection(list2);
                 System.out.println("Intersection of lists: ");
                 printList(intersection);
 
