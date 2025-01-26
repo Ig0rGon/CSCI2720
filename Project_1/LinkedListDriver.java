@@ -3,6 +3,7 @@ package Project_1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import SortedLinkedList;
 
 public class LinkedListDriver {
     public static void main(String[] args) {
@@ -29,7 +30,8 @@ public class LinkedListDriver {
         } catch (FileNotFoundException e) {
             System.out.println("File not found!" + filePath); // temporary message for testing purposes
         }
-
+        // Creates a new list
+        SortedLinkedList list = new SortedLinkedList();
         while (true) {
             System.out.println("Commands: ");
             System.out.println("(i) - Insert value");
@@ -46,12 +48,28 @@ public class LinkedListDriver {
             command = scanner.nextLine();
 
             if (command.equals("i")) {
+                // Insert Value
                 System.out.println("Enter a number to insert: ");
                 int insertValue = scanner.nextInt();
-                scanner.nextLine();
+                scanner.nextLine();  
+                System.out.print("Orginal List : ");
+                printList(list);
+                list.insertItem(insertValue);
+                System.out.print("New List : ");
+                printList(list);
             } else if (command.equals("d")) {
+                // Delete Value
                 System.out.println("Enter a number to delete: ");
                 int deleteValue = scanner.nextInt();
+                if(list.getLength() == 0) {
+                    System.out.println("You cannot delete from an empty list");
+                } else {
+                    System.out.print("Orginal List : ");
+                    printList(list);
+                    list.deleteItem(deleteValue);
+                    System.out.print("New List : ");
+                    printList(list);
+                }
 
             } else if (command.equals("s")) {
                 System.out.println("Enter a number to search: ");
@@ -85,4 +103,16 @@ public class LinkedListDriver {
         }
     }  
 
+    /**
+     * Helper method to print the list
+     * @param list to print to the console
+     */
+    private static void printList(SortedLinkedList list) {
+        NodeType temp = list.head;
+        while(temp != null) {
+            System.out.print(temp.info + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
 }
