@@ -3,7 +3,6 @@ package Project_1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import SortedLinkedList;
 
 public class LinkedListDriver {
     public static void main(String[] args) {
@@ -32,7 +31,7 @@ public class LinkedListDriver {
         }
         // Creates a new list
         SortedLinkedList list = new SortedLinkedList();
-        while(command.equals("q")) {
+        while(!command.equals("q")) {
             System.out.println("Commands: ");
             System.out.println("(i) - Insert value");
             System.out.println("(d) - Delete value");

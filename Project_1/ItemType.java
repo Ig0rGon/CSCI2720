@@ -15,4 +15,9 @@ public class ItemType {
     public void initialize(int num) {
         this.value = num;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 }
