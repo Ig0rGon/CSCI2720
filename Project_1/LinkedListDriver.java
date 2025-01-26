@@ -83,16 +83,44 @@ public class LinkedListDriver {
             } else if (command.equals("a")) {
 
             } else if (command.equals("m")) {
+                // Merges two lists
                 System.out.println("Enter the length of the new list: ");
+                int length = scanner.nextInt();
+                LinkedList list2 = new LinkedList();
+                System.out.println("Enter the numnbers: ");
+                for (int i = 0; i < length; i++) {
+                    int value = scanner.nextInt();
+                    list2.insertName(value);
+                }
 
             } else if (command.equals("t")) {
+                // Checks for intersection of two lists
                 System.out.println("Enter the length of the new list: ");
+                int length = scanner.nextInt();
+                Linked list2 = new LinkedList();
+                System.out.println("Enter the numbers ");
+                for (int i = 0; i < length; i++) {
+                    int value = scanner.nextInt();
+                    list2.insertItem(value);
+                }
+                System.out.println("The list 1: ");
+                printList(list);
+                System.out.println("The list 2: ");
+                printList(list2);
+                LinkedList intersection = list.intersection(list2);
+                System.out.println("Intersection of lists: ");
+                printList(intersection);
 
             } else if (command.equals("p")) {
+                // Prints list
+                System.out.println(list);
 
             } else if (command.equals("l")) {
+                // Print length of list
+                System.out.println("The length of the list is " + list.getLength());
 
             } else if (command.equals("q")) {
+                // Exits the program
                 System.out.println("Exiting the program...");
                 return;
             } else {
