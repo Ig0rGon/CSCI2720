@@ -183,7 +183,18 @@ public class SortedLinkedList {
         }
     }
 
-    public void intersection() {
-
+    public SortedLinkedList intersection(SortedLinkedList newList) {
+        // Traverse both lists and find common items
+        NodeType tempOldList = head;
+        NodeType tempNewList = newList.head;
+        while(tempNewList != null && tempOldList != null) {
+            if(tempNewList.compareTo(tempOldList) == 0) {
+                SortedLinkedList intersectionList = new SortedLinkedList();
+                intersectionList.insertItem(tempNewList.info);
+            }
+            tempNewList = tempNewList.next;
+            tempOldList = tempOldList.next;
+        }
+        return intersectionList;
     }
 }
