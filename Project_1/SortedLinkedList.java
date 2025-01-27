@@ -1,227 +1,149 @@
 package Project_1;
 
-import NodeType;
-import ItemType;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
-public class SortedLinkedList {
-    private NodeType head;
-    private NodeType currentPos;
+public class LinkedListDriver {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        SortedLinkedList list = new SortedLinkedList();
 
-    public SortedLinkedList() {
-        this.head = null;
-        this.currentPos = null;
-    }
-
-    public int getLength() {
-        int size = 0;
-        if(head == null) {
-            return size;
-        }
-        else {
-            NodeType temp = head;
-            while(temp != null) {
-                if(Integer.temp.info.getValue() != null) {
-                    size++;
+        // Check for a command-line argument (file path)
+        if (args.length == 1) {
+            String filePath = args[0];
+            try (Scanner fileScanner = new Scanner(new File(filePath))) {
+                System.out.println("Initializing list from file: " + filePath);
+                while (fileScanner.hasNextInt()) {
+                    int value = fileScanner.nextInt();
+                    ItemType item = new ItemType();
+                    item.initialize(value);
+                    list.insertItem(item);
                 }
-                temp = temp.next;
+                System.out.println("List initialized: " + list);
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found: " + filePath);
+                return; // Exit if the file cannot be found
             }
-            return size;
-        }
-    }
-
-    public void insertItem(ItemType item) {
-        // If the list is empty
-        if(this.getLength() == 0) {
-            head = new NodeType(item);
         } else {
-            // If the item to be inserted is new or already in the list
-            boolean duplicate = false;
-            NodeType temp = head;
-            while(temp != null) {
-                if(temp.info.getValue() == item.getValue()) {
-                    duplicate = true;
-                }
-                temp = temp.next;
-            }
-            if(duplicate == false){
-                // new item and insert it in the list in ascending order
-                NodeType temp = head;
-                boolean newNodeisInserted = false;
-                while(temp != null) {
-                    if(temp.info.compareTo(item) > 0) {
-                        // Insert item at the beginning of the list
-                        NodeType insertedNode = new NodeType(item);
-                        insertedNode.next = head;
-                        head = insertedNode;
-                        newNodeisInserted = true;
-                    } else if(temp.info.compareTo(item) < 0 && temp.next == null) {
-                        // Insert item at the end of the list
-                        NodeType insertedNode = new NodeType(item);
-                        temp.next = insertedNode;
-                        newNodeisInserted = true;
-                    } else if(temp.info.compareTo(item) < 0 && temp.next.info.compareTo(item) > 0) {
-                        // Insert item in the middle of the list
-                        NodeType insertedNode = new NodeType(item);
-                        insertedNode.next = temp.next;
-                        temp.next = insertedNode;
-                        newNodeisInserted = true;
-                    }
-                    temp = temp.next;
-                }
-            } else {
-                // already in
-                System.out.println("Sorry. You cannot insert the duplicate item");
-            }
+            System.out.println("No file provided. Starting with an empty list.");
         }
-    }
 
-    public void deleteItem(ItemType item) {
-        // Traverse list to find if the item exists
-        NodeType temp = head;
-        boolean itemExists = false;
-        while(temp != null) {
-                if(temp.info.getValue() == item.getValue()) {
-                    itemExists = true;
+        String command = "";
+        while (!command.equals("q")) {
+            System.out.println("\nCommands:");
+            System.out.println("(i) - Insert value");
+            System.out.println("(d) - Delete value");
+            System.out.println("(s) - Search value");
+            System.out.println("(n) - Print next iterator value");
+            System.out.println("(r) - Reset iterator");
+            System.out.println("(a) - Delete alternate nodes");
+            System.out.println("(m) - Merge lists");
+            System.out.println("(t) - Find intersection");
+            System.out.println("(p) - Print list");
+            System.out.println("(l) - Print length");
+            System.out.println("(q) - Quit program");
+            System.out.print("Enter your command: ");
+            command = scanner.nextLine();
+
+            if (command.equals("i")) {
+                System.out.print("Enter a number to insert: ");
+                int insertValue = scanner.nextInt();
+                scanner.nextLine();
+                ItemType item = new ItemType();
+                item.initialize(insertValue);
+                list.insertItem(item);
+                System.out.print("Updated list: ");
+                System.out.println(list);
+
+            } else if (command.equals("d")) {
+                System.out.print("Enter a number to delete: ");
+                int deleteValue = scanner.nextInt();
+                scanner.nextLine();
+                ItemType itemToDelete = new ItemType();
+                itemToDelete.initialize(deleteValue);
+                list.deleteItem(itemToDelete);
+                System.out.print("Updated list: ");
+                System.out.println(list);
+
+            } else if (command.equals("s")) {
+                System.out.print("Enter a number to search: ");
+                int searchValue = scanner.nextInt();
+                scanner.nextLine();
+                int index = list.searchItem(searchValue);
+                if (index == -1) {
+                    System.out.println("Item not found.");
+                } else {
+                    System.out.println("Item found at index: " + index);
                 }
-                temp = temp.next;
-            }
-        if(getLength() == 0) {
-            // List is empty
-            System.out.println("You cannot delete from an empty list");
-        } else if(itemExists == false) {
-            // Item does not exist
-            System.out.println("Item not found");
-        } else {
-            // Only 1 item in the list
-            if(getLength() == 1) {
-                head = null;
-            } else if(head.info.compareTo(item) == 0) {
-                // First item in the list
-                head = head.next;
-            } else {
-                // Item is in the middle or at the end of the list
-                NodeType prev = head;
-                NodeType curr = head.next;
-                boolean foundDeletedNode = false;
-                while(curr != null && foundDeletedNode == false) {
-                    if(curr.info.compareTo(item) == 0) {
-                        prev.next = curr.next;
-                        foundDeletedNode = true;
-                    } else {
-                        prev = curr;
-                        curr = curr.next;
-                    }
+
+            } else if (command.equals("n")) {
+                ItemType nextItem = list.getNextItem();
+                if (nextItem != null) {
+                    System.out.println("Next item: " + nextItem);
+                } else {
+                    System.out.println("No more items in the list.");
+
                 }
-                
-            }
-        }
-    }
+            } else if (command.equals("r")) {
+                list.resetList();
+                System.out.println("Iterator reset.");
 
-    public int searchItem(ItemType item) {
-        int index = 1;
-        NodeType temp = head;
-        // Traverse list to find the item at the specified index
-        while(temp != null) {
-            if(temp.info.getValue() == item.getValue()) {
-                return index;
-            }
-            temp = temp.next;
-            index++;
-        }
-        // Item not found
-        return -1; 
-    }
+            } else if (command.equals("a")) {
+                System.out.print("Original list: ");
+                System.out.println(list);
+                list.deleteAlternate();
+                System.out.print("Updated list: ");
+                System.out.println(list);
 
-    public ItemType getNextItem() {
-        // If the list is empty
-        if (head == null) {
-            System.out.println("The list is empty");
-            return null;
-        } 
-        if (currentPos == null) {
-            // Start the from the beginning of the list
-            currentPos = head;
-        } else if (currentPos.next == null) {
-            System.out.println("The end of the list has been reached");
-            // Start the iterator from the beginning of the list
-            currentPos = head;
-        } else {
-            // Move the iterator to the next node
-            currentPos = currentPos.next;
-        }
-        return currentPos.info;
-    }
-
-    public void resetList() {
-        currentPos = null;
-    }
-
-    public void mergeList(SortedLinkedList newList) {
-        NodeType tempOldList = head;
-        NodeType tempNewList = newList.head;
-        // Sorts new list into the old list in ascending order
-        while(tempNewList != null && tempOldList != null) {
-            if(tempNewList.compareTo(tempOldList) == 0) {
-                // Do not insert duplicate items
-                tempNewList = tempNewList.next;
-                tempOldList = tempOldList.next;
-            } else if(tempNewList.compareTo(tempOldList) > 0) {
-                // Insert new item and shift list to the right
-                NodeType insertedNode = new NodeType(tempNewList.info);
-                insertedNode.next = tempOldList.next;
-                tempOldList.next = insertedNode;
-                tempNewList = tempNewList.next;
-                tempOldList = tempOldList.next;
-            } else if(tempNewList.compareTo(tempOldList) < 0) {
-                // Insert new item and shift list to the left
-                NodeType insertedNode = new NodeType(tempNewList.info);
-                insertedNode.next = tempOldList;
-                tempOldList = insertedNode;
-                tempNewList = tempNewList.next;
-                tempOldList = tempOldList.next;
-            } 
-        }
-    }
-
-    public void deleteAlternateNodes() {
-        // delete alternate nodes if the list has more than 1 node
-        if(getLength() != 0 && getLength() != 1) {  
-            if(getLength() % 2 == 0) {
-                // If list has an even number of nodes
-                int positionToDelete = 1;
-                NodeType temp = head;
-                while(temp != null) {
-                    if(positionToDelete % 2 == 0) {
-                        temp = temp.next;
-                    }
-                    positionToDelete++;
+            } else if (command.equals("m")) {
+                System.out.print("Enter the number of items in the new list: ");
+                int length = scanner.nextInt();
+                scanner.nextLine();
+                SortedLinkedList newList = new SortedLinkedList();
+                System.out.println("Enter the items for the new list:");
+                for (int i = 0; i < length; i++) {
+                    int value = scanner.nextInt();
+                    scanner.nextLine();
+                    ItemType newItem = new ItemType();
+                    newItem.initialize(value);
+                    newList.insertItem(newItem);
                 }
-            } else if(getLength() % 2 != 0) {
-                // If list has an odd number of nodes
-                int positionToDelete = 1;
-                NodeType temp = head;
-                while(temp != null) {
-                    if(positionToDelete % 2 == 0) {
-                        temp = temp.next;
-                    }
-                    positionToDelete++;
-                }
-            }
-        }
-    }
+                list = list.merge(newList);
+                System.out.print("Merged list: ");
+                System.out.println(list);
 
-    public SortedLinkedList intersection(SortedLinkedList newList) {
-        // Traverse both lists and find common items
-        NodeType tempOldList = head;
-        NodeType tempNewList = newList.head;
-        while(tempNewList != null && tempOldList != null) {
-            if(tempNewList.compareTo(tempOldList) == 0) {
+            } else if (command.equals("t")) {
+                System.out.print("Enter the number of items in the new list: ");
+                int newLength = scanner.nextInt();
+                scanner.nextLine();
                 SortedLinkedList intersectionList = new SortedLinkedList();
-                intersectionList.insertItem(tempNewList.info);
+                System.out.println("Enter the items for the new list:");
+                for (int i = 0; i < newLength; i++) {
+                    int value = scanner.nextInt();
+                    scanner.nextLine();
+                    ItemType newItem = new ItemType();
+                    newItem.initialize(value);
+                    intersectionList.insertItem(newItem);
+                }
+                SortedLinkedList intersection = list.intersection(intersectionList);
+                System.out.print("Intersection list: ");
+                System.out.println(intersection);
+
+            } else if (command.equals("p")) {
+                System.out.println("List contents: " + list);
+
+            } else if (command.equals("l")) {
+                System.out.println("List length: " + list.getLength());
+
+            } else if (command.equals("q")) {
+                System.out.println("Exiting program...");
+
+            } else {
+                System.out.println("Invalid command. Try again.");
             }
-            tempNewList = tempNewList.next;
-            tempOldList = tempOldList.next;
         }
-        return intersectionList;
+
+        scanner.close();
     }
 }

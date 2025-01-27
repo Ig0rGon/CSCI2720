@@ -1,38 +1,15 @@
 package Project_1;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LinkedListDriver {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String command;
-
-        // check if the file input.txt is found
-        if (args.length != 1) {
-            System.out.println("File input.txt is not found!");
-            return;
-        }   
-
-        String filePath = args[0];
-
-        // try to open the file
-        try (Scanner fileScanner = new Scanner(new File(filePath))) {
-            System.out.println("Usage: java FileHandler <input.txt>"); // temporary message for testing purposes
-        
-            // read the line from the input file
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                System.out.println(line); // temporary message for testing purposes
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found!" + filePath); // temporary message for testing purposes
-        }
-        // Creates a new list
         SortedLinkedList list = new SortedLinkedList();
-        while(!command.equals("q")) {
-            System.out.println("Commands: ");
+        String command = "";
+
+        while (!command.equals("q")) {
+            System.out.println("\nCommands:");
             System.out.println("(i) - Insert value");
             System.out.println("(d) - Delete value");
             System.out.println("(s) - Search value");
@@ -44,137 +21,107 @@ public class LinkedListDriver {
             System.out.println("(p) - Print list");
             System.out.println("(l) - Print length");
             System.out.println("(q) - Quit program");
+            System.out.print("Enter your command: ");
             command = scanner.nextLine();
 
             if (command.equals("i")) {
-                // Insert Value
-                System.out.println("Enter a number to insert: ");
+                System.out.print("Enter a number to insert: ");
                 int insertValue = scanner.nextInt();
-                scanner.nextLine(); 
-                ItemType item = new ItemType();
-                item.initialize(insertValue); 
-                System.out.print("Orginal List : ");
-                printList(list);
-                list.insertItem(item);
-                System.out.print("New List : ");
-                printList(list);
-            } else if (command.equals("d")) {
-                // Delete Value
-                System.out.println("Enter a number to delete: ");
-                int deleteValue = scanner.nextInt();
-                if(list.getLength() == 0) {
-                    System.out.println("You cannot delete from an empty list");
-                } else {
-                    System.out.print("Orginal List : ");
-                    printList(list);
-                    list.deleteItem(deleteValue);
-                    System.out.print("New List : ");
-                    printList(list);
-                }
-
-            } else if (command.equals("s")) {
-                System.out.println("Enter a number to search: ");
-                int searchValue = scanner.nextInt();
                 scanner.nextLine();
-                System.out.print("Orginal List : ");
-                printList(list);
-                int index = list.searchItem(searchValue); 
-                if(list.getLength() == 0) {
-                    // List is empty
-                    System.out.println("The list is empty");
-                } else {
-                    // Cases for finding the item
-                    if(index == -1) {
-                        System.out.println("Item is not present in the list");
-                    } else {
-                        System.out.println("The item is present at index " + index);
-                    }
-                }
-            } else if (command.equals("n")) {
-                // Print next iterator value
-                System.out.println(list.getNextItem());
-            } else if (command.equals("r")) {
-                list.resetList();
-                System.out.println("Iterator is reset");
-            } else if (command.equals("a")) {
-                // Delete alternate nodes
-                System.out.print("Orginal List: ");
-                printList(list);
-                if(list.getLength() == 0) {
-                    System.out.println("The list is empty");
-                }
-                list.deleteAlternate();
-                System.out.print("Modified List: ");
-                printList(list);
-            } else if (command.equals("m")) {
-                // Merges two lists
-                System.out.println("Enter the length of the new list: ");
-                int length = scanner.nextInt();
-                SortedLinkedList list2 = new SortedLinkedList();
-                System.out.println("Enter the numbers: ");
-                for (int i = 0; i < length; i++) {
-                    int value = scanner.nextInt();
-                    ItemType item = new ItemType();
-                    item.initialize(value);
-                    list2.insertItem(value);
-                }
-                System.out.print("The list 1: ");
-                printList(list);
-                System.out.print("The list 2: ");
-                printList(list2);
-                SortedLinkedList mergedList = list.merge(list2);
-                System.out.print("Merged list: ");
-                printList(mergedList);
-
-            } else if (command.equals("t")) {
-                // Checks for intersection of two lists
-                System.out.println("Enter the length of the new list: ");
-                int length = scanner.nextInt();
-                SortedLinkedList list2 = new SortedLinkedList();
-                System.out.println("Enter the numbers ");
-                for (int i = 0; i < length; i++) {
-                    int value = scanner.nextInt();
-                    ItemType item = new ItemType();
-                    item.initialize(value);
-                    list2.insertItem(item);
-                }
-                System.out.println("The list 1: ");
-                printList(list);
-                System.out.println("The list 2: ");
-                printList(list2);
-                SortedLinkedList intersection = list.intersection(list2);
-                System.out.println("Intersection of lists: ");
-                printList(intersection);
-
-            } else if (command.equals("p")) {
-                // Prints list
+                ItemType item = new ItemType();
+                item.initialize(insertValue);
+                list.insertItem(item);
+                System.out.print("Updated list: ");
                 System.out.println(list);
 
+            } else if (command.equals("d")) {
+                System.out.print("Enter a number to delete: ");
+                int deleteValue = scanner.nextInt();
+                scanner.nextLine();
+                ItemType itemToDelete = new ItemType();
+                itemToDelete.initialize(deleteValue);
+                list.deleteItem(itemToDelete);
+                System.out.print("Updated list: ");
+                System.out.println(list);
+
+            } else if (command.equals("s")) {
+                System.out.print("Enter a number to search: ");
+                int searchValue = scanner.nextInt();
+                scanner.nextLine();
+                int index = list.searchItem(searchValue);
+                if (index == -1) {
+                    System.out.println("Item not found.");
+                } else {
+                    System.out.println("Item found at index: " + index);
+                }
+
+            } else if (command.equals("n")) {
+                ItemType nextItem = list.getNextItem();
+                if (nextItem != null) {
+                    System.out.println("Next item: " + nextItem);
+                } else {
+                    System.out.println("No more items in the list.");
+
+                }
+            } else if (command.equals("r")) {
+                list.resetList();
+                System.out.println("Iterator reset.");
+
+            } else if (command.equals("a")) {
+                System.out.print("Original list: ");
+                System.out.println(list);
+                list.deleteAlternate();
+                System.out.print("Updated list: ");
+                System.out.println(list);
+
+            } else if (command.equals("m")) {
+                System.out.print("Enter the number of items in the new list: ");
+                int length = scanner.nextInt();
+                scanner.nextLine();
+                SortedLinkedList newList = new SortedLinkedList();
+                System.out.println("Enter the items for the new list:");
+                for (int i = 0; i < length; i++) {
+                    int value = scanner.nextInt();
+                    scanner.nextLine();
+                    ItemType newItem = new ItemType();
+                    newItem.initialize(value);
+                    newList.insertItem(newItem);
+                }
+                list = list.merge(newList);
+                System.out.print("Merged list: ");
+                System.out.println(list);
+
+            } else if (command.equals("t")) {
+                System.out.print("Enter the number of items in the new list: ");
+                int newLength = scanner.nextInt();
+                scanner.nextLine();
+                SortedLinkedList intersectionList = new SortedLinkedList();
+                System.out.println("Enter the items for the new list:");
+                for (int i = 0; i < newLength; i++) {
+                    int value = scanner.nextInt();
+                    scanner.nextLine();
+                    ItemType newItem = new ItemType();
+                    newItem.initialize(value);
+                    intersectionList.insertItem(newItem);
+                }
+                SortedLinkedList intersection = list.intersection(intersectionList);
+                System.out.print("Intersection list: ");
+                System.out.println(intersection);
+
+            } else if (command.equals("p")) {
+                System.out.println("List contents: " + list);
+
             } else if (command.equals("l")) {
-                // Print length of list
-                System.out.println("The length of the list is " + list.getLength());
+                System.out.println("List length: " + list.getLength());
 
             } else if (command.equals("q")) {
-                // Exits the program
-                System.out.println("Exiting the program...");
-                return;
+                System.out.println("Exiting program...");
+
             } else {
-                System.out.println("Invalid command try again: ");
-                command = scanner.nextLine();
+                System.out.println("Invalid command. Try again.");
             }
         }
-    }  
 
-    /**
-     * Helper method to print the list
-     * @param list to print to the console
-     */
-    private static void printList(SortedLinkedList list) {
-        NodeType temp = list.head;
-        while(temp != null) {
-            System.out.print(temp.info + " ");
-            temp = temp.next;
-        }
-        System.out.println();
+        scanner.close();
     }
 }
