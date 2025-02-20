@@ -11,3 +11,4 @@ public class NodeType<T extends Comparable<T>> {
         back = null;
     }
 }
+

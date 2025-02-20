@@ -1,5 +1,5 @@
 package Project_1;
-
+/* 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -168,6 +168,7 @@ public class LinkedListDriver {
  * Helper method to print the list
  * @param list to print to the console
  */
+/*
     private static void printList(SortedLinkedList list) {
        ItemType item;
         list.resetList(); // Reset the list to start from the beginning
@@ -178,5 +179,5 @@ public class LinkedListDriver {
      }
 }
 
-
+*/
 
