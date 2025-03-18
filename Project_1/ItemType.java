@@ -1,5 +1,5 @@
 package Project_1;
-
+/* 
 public class ItemType {
 
     private int value;
@@ -12,12 +12,5 @@ public class ItemType {
         return value;
     }
 
-    public void initialize(int num) {
-        this.value = num;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-} 
+    public
+    */
